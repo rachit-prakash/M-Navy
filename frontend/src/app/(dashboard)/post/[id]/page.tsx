@@ -123,7 +123,7 @@ export default function PostPage() {
 
       {/* Main Post */}
       <div className="glass-card p-6 md:p-8 mb-8 border-t-4 border-primary/50">
-        <div className="flex items-center gap-2 mb-4">
+        <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
           <span className="text-[10px] font-bold tracking-widest px-2 py-1 rounded bg-primary/10 text-primary uppercase">
             {post.category}
           </span>
@@ -153,7 +153,7 @@ export default function PostPage() {
         <div className="space-y-4">
           {post.replies?.map((reply) => (
             <div key={reply.id} className="glass-card p-6 border-l-2 border-l-tertiary shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
                 <span className="text-sm font-headline font-bold text-on-surface">
                   {reply.profiles?.username || "Anonymous"}
                 </span>

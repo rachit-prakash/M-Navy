@@ -98,7 +98,7 @@ export default function Sidebar({ isCollapsed = false, setIsCollapsed }: { isCol
     <>
       <button 
         onClick={() => setIsMobileOpen(true)}
-        className="md:hidden fixed top-3 left-4 z-50 p-2 text-gray-300 bg-[#121214] border border-gray-800 rounded-lg"
+        className="md:hidden fixed top-3 left-4 z-50 p-2 text-on-surface bg-surface/80 backdrop-blur-sm border border-outline-variant/30 hover:bg-surface-container-high rounded-lg shadow-sm"
       >
         <Menu className="h-5 w-5" />
       </button>

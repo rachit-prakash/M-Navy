@@ -162,7 +162,7 @@ export default function ChatPage() {
   }
 
    return (
-    <div className="flex h-[calc(100vh-4rem)] lg:h-[calc(100vh-7rem)] max-w-[1600px] mx-auto overflow-hidden">
+    <div className="flex h-[calc(100vh-6rem)] lg:h-[calc(100vh-7rem)] max-w-[1600px] mx-auto overflow-hidden">
       {/* Center: Main Chat Interface */}
       <section className="flex-1 flex flex-col relative px-4 lg:px-8 py-6 h-full">
         {/* Chat Header */}

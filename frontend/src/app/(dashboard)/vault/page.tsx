@@ -153,8 +153,8 @@ export default function DocumentVault() {
 
       {/* Document Grid */}
       <section className="glass-card rounded-2xl overflow-hidden min-h-[400px]">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+        <div className="overflow-x-auto glass-card rounded-xl border border-outline-variant/10">
+          <table className="w-full text-left border-collapse min-w-[800px]">
             <thead>
               <tr className="bg-surface-container-highest/30">
                 <th className="px-6 py-5 text-xs font-headline uppercase tracking-widest text-on-surface-variant border-b border-outline-variant/10">Manual Name</th>
