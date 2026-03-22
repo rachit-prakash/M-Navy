@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>M-Navy Operational AI Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error": "#ffb4ab",
+              "secondary-container": "#343d96",
+              "secondary": "#bdc2ff",
+              "primary": "#00daf3",
+              "surface": "#10141a",
+              "on-tertiary-fixed-variant": "#5d4201",
+              "on-secondary-fixed": "#000767",
+              "on-tertiary-container": "#a17f3c",
+              "tertiary-fixed-dim": "#e9c176",
+              "outline": "#8e9099",
+              "outline-variant": "#44474f",
+              "on-surface": "#dfe2eb",
+              "on-error": "#690005",
+              "surface-bright": "#353940",
+              "secondary-fixed-dim": "#bdc2ff",
+              "on-surface-variant": "#c5c6d0",
+              "surface-variant": "#31353c",
+              "surface-dim": "#10141a",
+              "on-primary-container": "#0092a3",
+              "secondary-fixed": "#e0e0ff",
+              "primary-fixed": "#9cf0ff",
+              "inverse-on-surface": "#2d3137",
+              "surface-container-lowest": "#0a0e14",
+              "on-error-container": "#ffdad6",
+              "on-background": "#dfe2eb",
+              "surface-tint": "#00daf3",
+              "tertiary-container": "#281a00",
+              "background": "#10141a",
+              "primary-fixed-dim": "#00daf3",
+              "inverse-primary": "#006875",
+              "on-primary-fixed": "#001f24",
+              "tertiary": "#e9c176",
+              "surface-container-low": "#181c22",
+              "on-secondary-fixed-variant": "#343d96",
+              "inverse-surface": "#dfe2eb",
+              "surface-container": "#1c2026",
+              "on-primary-fixed-variant": "#004f58",
+              "primary-container": "#002126",
+              "tertiary-fixed": "#ffdea5",
+              "surface-container-highest": "#31353c",
+              "on-tertiary-fixed": "#261900",
+              "on-tertiary": "#412d00",
+              "surface-container-high": "#262a31",
+              "error-container": "#93000a",
+              "on-secondary": "#1b247f",
+              "on-secondary-container": "#a8afff",
+              "on-primary": "#00363d"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #10141a;
+            color: #dfe2eb;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(24, 28, 34, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(68, 71, 79, 0.15);
+            box-shadow: inset 1px 1px 0px rgba(223, 226, 235, 0.05);
+        }
+        .abyssal-gradient {
+            background: radial-gradient(circle at top right, #353940 0%, #10141a 100%);
+        }
+        .primary-glow {
+            box-shadow: 0 0 12px rgba(0, 218, 243, 0.2);
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #31353c;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col abyssal-gradient">
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#10141a] shadow-[0_24px_48px_-12px_rgba(0,0,0,0.5)]">
+<div class="flex items-center gap-4">
+<span class="text-xl font-black tracking-tighter text-[#dfe2eb]">M-Navy Operational AI</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-['Manrope'] tracking-widest uppercase text-sm font-bold text-[#c5c6d0] hover:text-[#dfe2eb] transition-colors" href="#">Fleet Status</a>
+<a class="font-['Manrope'] tracking-widest uppercase text-sm font-bold text-[#00daf3] border-b-2 border-[#00daf3] pb-1" href="#">Mission Intel</a>
+<a class="font-['Manrope'] tracking-widest uppercase text-sm font-bold text-[#c5c6d0] hover:text-[#dfe2eb] transition-colors" href="#">Logistics</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 text-[#c5c6d0] hover:bg-[#31353c]/60 rounded-full transition-all active:scale-95"><span class="material-symbols-outlined">notifications</span></button>
+<button class="p-2 text-[#c5c6d0] hover:bg-[#31353c]/60 rounded-full transition-all active:scale-95"><span class="material-symbols-outlined">settings</span></button>
+<img class="w-8 h-8 rounded-full border border-[#44474f]/30" data-alt="Officer Profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRbbgDgAc8uuippTYUDl9a2sNfzZiAA1QBJ-sZrOIz12XY6A8RJ5CBs-hpEPxj7CAlRccph2_UBXTGeg4FBM7tRb9CqbrsZKu2N1HnFuMlChqlUFf5mQ8Tmgn1cxte_8Yz7aGCMj7VMVnZAYnctC5P4ITwmvque1ypE9J7adPPxAlGSN-KPeeFVSMABCYza1IrWLfzYBv1tIY_mr0vnfi5kowKi8Tg3nsCi-sPdXtUygheyvDKi_F9wBIwwMMkG3X1eEzjGZu3ISo"/>
+</div>
+</header>
+<main class="flex-1 flex mt-16 overflow-hidden">
+<!-- Left: SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] flex flex-col p-4 z-40 bg-[#181c22] w-64 border-r border-[#44474f]/15">
+<div class="flex items-center gap-3 mb-8 px-2">
+<div class="w-10 h-10 bg-[#31353c] rounded-xl flex items-center justify-center border border-[#44474f]/30">
+<span class="material-symbols-outlined text-[#00daf3]">anchor</span>
+</div>
+<div>
+<h3 class="text-lg font-bold text-[#dfe2eb] leading-none font-['Manrope']">Task Force Alpha</h3>
+<p class="text-xs text-[#c5c6d0] mt-1 font-['Manrope']">Strategic Ops</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<div class="p-3 bg-gradient-to-r from-[#00daf3] to-[#0092a3] text-[#10141a] rounded-xl font-bold shadow-[0_0_8px_rgba(0,218,243,0.3)] flex items-center gap-3 cursor-pointer">
+<span class="material-symbols-outlined">terminal</span>
+<span class="font-['Manrope'] text-sm">Command Center</span>
+</div>
+<div class="p-3 text-[#c5c6d0] hover:bg-[#262a31] rounded-xl transition-all hover:translate-x-1 flex items-center gap-3 cursor-pointer">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-['Manrope'] text-sm">AI Navigator</span>
+</div>
+<div class="p-3 text-[#c5c6d0] hover:bg-[#262a31] rounded-xl transition-all hover:translate-x-1 flex items-center gap-3 cursor-pointer">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-['Manrope'] text-sm">Vessel Logs</span>
+</div>
+<div class="p-3 text-[#c5c6d0] hover:bg-[#262a31] rounded-xl transition-all hover:translate-x-1 flex items-center gap-3 cursor-pointer">
+<span class="material-symbols-outlined">warning</span>
+<span class="font-['Manrope'] text-sm">Emergency Protocol</span>
+</div>
+</nav>
+<button class="mt-4 w-full bg-[#00daf3] text-[#00363d] font-bold py-3 rounded-xl flex items-center justify-center gap-2 primary-glow active:opacity-80 transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+<span class="font-['Manrope'] text-sm uppercase tracking-wider">New Briefing</span>
+</button>
+<div class="mt-auto border-t border-[#44474f]/15 pt-4 space-y-1">
+<div class="p-3 text-[#c5c6d0] hover:bg-[#262a31] rounded-xl transition-all flex items-center gap-3 cursor-pointer">
+<span class="material-symbols-outlined">help_center</span>
+<span class="font-['Manrope'] text-sm">Support</span>
+</div>
+<div class="p-3 text-[#c5c6d0] hover:bg-[#262a31] rounded-xl transition-all flex items-center gap-3 cursor-pointer">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-['Manrope'] text-sm">Logout</span>
+</div>
+</div>
+</aside>
+<!-- Center: Main Chat Interface -->
+<section class="ml-64 flex-1 flex flex-col relative px-8 py-6">
+<!-- Chat Header -->
+<div class="mb-8 flex items-end justify-between">
+<div class="max-w-xl">
+<h1 class="font-headline text-4xl font-extrabold tracking-widest text-[#dfe2eb] uppercase">Mission Intel</h1>
+<p class="text-on-surface-variant font-body mt-2">Active Strategic Analysis Hub • USS VALIANT-7</p>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-full border border-outline-variant/10">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-xs font-label uppercase tracking-widest text-primary">System Online</span>
+</div>
+</div>
+<!-- Messages Container -->
+<div class="flex-1 overflow-y-auto space-y-8 pr-4 mb-24">
+<!-- AI Message -->
+<div class="flex gap-4 items-start max-w-3xl">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center primary-glow shrink-0 border border-primary-fixed">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div class="glass-card p-6 rounded-2xl rounded-tl-none">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-bold text-primary tracking-widest uppercase">M-Navy AI</span>
+<span class="text-[10px] text-on-surface-variant font-mono">14:22:05 UTC</span>
+</div>
+<p class="text-on-surface leading-relaxed font-body">Officer, I've completed the cross-reference of the acoustic signals from Sector 4-B. The patterns match a non-biological origin consistent with Class-III submersible drones. Recommendation: Deploy tactical buoy grid for localized triangulation.</p>
+<div class="mt-4 flex gap-2">
+<span class="px-2 py-1 bg-surface-container-highest rounded text-[10px] text-on-surface-variant border border-outline-variant/20">Class-III Match</span>
+<span class="px-2 py-1 bg-surface-container-highest rounded text-[10px] text-on-surface-variant border border-outline-variant/20">Acoustic ID: A-402</span>
+</div>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex gap-4 items-start flex-row-reverse max-w-3xl ml-auto">
+<div class="w-10 h-10 rounded-full overflow-hidden shrink-0 border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="Officer Profile Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3uTcqYQOT-IXvhGu6vA6XvVx7pBgLJfYwhydvLcLrFjxH0WLzs2_vddZu88huoOv79ggjGJvbxw7WRB_3_pcuCXMtr4LYG-PeXpvvs-FRAGYpoCrgYdWbQwYaZilvAOf0T7W0t7Hwd5qgLCEpvrD-mjKSAXYr9O9j8YPnSkW2fA5f3uM5IE2aUiG-eonZmhucV1jroMXE8QXDUEZSjnpTK9Dy3GNJNN1oki8y_TZFuQWpYcMaTELmFNPCM7sqJ4nvHmNNPG7eTqg"/>
+</div>
+<div class="bg-surface-container-high p-6 rounded-2xl rounded-tr-none border border-outline-variant/20">
+<div class="flex justify-between items-center mb-2">
+<span class="text-[10px] text-on-surface-variant font-mono">14:24:12 UTC</span>
+<span class="text-xs font-bold text-on-surface tracking-widest uppercase">CDR. HAWKINS</span>
+</div>
+<p class="text-on-surface leading-relaxed font-body">Acknowledge. Draft SITREP for Task Force Command regarding the Class-III identification. Include the engine telemetry from last night's shadow contact.</p>
+</div>
+</div>
+<!-- AI Message (Typing) -->
+<div class="flex gap-4 items-start max-w-3xl">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center primary-glow shrink-0 border border-primary-fixed">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div class="glass-card px-6 py-4 rounded-2xl rounded-tl-none flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-primary rounded-full opacity-40"></span>
+<span class="w-1.5 h-1.5 bg-primary rounded-full opacity-70"></span>
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+</div>
+</div>
+</div>
+<!-- Input Section -->
+<div class="fixed bottom-8 left-[calc(16rem+2rem)] right-[calc(20rem+2rem)] z-30">
+<div class="glass-card p-2 rounded-2xl flex items-center gap-4 border-primary/20">
+<div class="flex items-center gap-3 px-4 py-3 bg-surface-container-highest rounded-xl cursor-pointer hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined text-tertiary">shield</span>
+<div class="flex flex-col">
+<span class="text-[9px] uppercase tracking-tighter text-on-surface-variant font-black">Protocols</span>
+<span class="text-[10px] font-bold text-tertiary">ENCRYPTED</span>
+</div>
+<div class="w-6 h-3 bg-tertiary/20 rounded-full relative ml-2">
+<div class="absolute right-0.5 top-0.5 w-2 h-2 bg-tertiary rounded-full"></div>
+</div>
+</div>
+<input class="flex-1 bg-transparent border-none text-on-surface placeholder-on-surface-variant/40 focus:ring-0 text-sm font-body" placeholder="Transcribe operational request..." type="text"/>
+<button class="bg-gradient-to-br from-primary to-on-primary-container p-3 rounded-xl primary-glow active:scale-95 transition-all group">
+<span class="material-symbols-outlined text-on-primary group-hover:rotate-12 transition-transform">send</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Right Column: Widget Panel -->
+<aside class="w-80 h-full bg-surface-container-low border-l border-outline-variant/15 p-6 space-y-8 flex flex-col overflow-y-auto">
+<!-- Suggested Maritime Queries -->
+<div>
+<h4 class="font-headline text-xs font-black tracking-widest text-[#dfe2eb] uppercase mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">analytics</span>
+                    Strategic Suggestions
+                </h4>
+<div class="space-y-3">
+<button class="w-full text-left p-4 bg-surface-container-high/50 hover:bg-surface-container-high rounded-xl border border-outline-variant/10 transition-all group">
+<p class="text-xs font-body text-on-surface leading-snug">Analyze sector 4-B sonar anomalies for Class-III signatures.</p>
+<div class="mt-2 flex items-center text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="text-[10px] font-black uppercase tracking-widest">Execute</span>
+<span class="material-symbols-outlined text-[14px] ml-1">chevron_right</span>
+</div>
+</button>
+<button class="w-full text-left p-4 bg-surface-container-high/50 hover:bg-surface-container-high rounded-xl border border-outline-variant/10 transition-all group">
+<p class="text-xs font-body text-on-surface leading-snug">Draft SITREP for engine failure and power grid instability.</p>
+<div class="mt-2 flex items-center text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="text-[10px] font-black uppercase tracking-widest">Execute</span>
+<span class="material-symbols-outlined text-[14px] ml-1">chevron_right</span>
+</div>
+</button>
+<button class="w-full text-left p-4 bg-surface-container-high/50 hover:bg-surface-container-high rounded-xl border border-outline-variant/10 transition-all group">
+<p class="text-xs font-body text-on-surface leading-snug">Re-calculate intercept vector for Rogue Fleet Charlie.</p>
+<div class="mt-2 flex items-center text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="text-[10px] font-black uppercase tracking-widest">Execute</span>
+<span class="material-symbols-outlined text-[14px] ml-1">chevron_right</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Recent Manuals -->
+<div>
+<h4 class="font-headline text-xs font-black tracking-widest text-[#dfe2eb] uppercase mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">library_books</span>
+                    Tactical Manuals
+                </h4>
+<div class="grid grid-cols-1 gap-2">
+<div class="p-3 glass-card rounded-lg flex items-center gap-3 group cursor-pointer">
+<div class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">description</span>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="text-[11px] font-bold text-on-surface truncate">Acoustic Masking v2.4</p>
+<p class="text-[9px] text-on-surface-variant uppercase">Technical Specs</p>
+</div>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-all">download</span>
+</div>
+<div class="p-3 glass-card rounded-lg flex items-center gap-3 group cursor-pointer">
+<div class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">description</span>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="text-[11px] font-bold text-on-surface truncate">Hull Integrity Standards</p>
+<p class="text-[9px] text-on-surface-variant uppercase">Maintenance</p>
+</div>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-all">download</span>
+</div>
+<div class="p-3 glass-card rounded-lg flex items-center gap-3 group cursor-pointer">
+<div class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">description</span>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="text-[11px] font-bold text-on-surface truncate">Counter-Drone Protocols</p>
+<p class="text-[9px] text-on-surface-variant uppercase">Classified</p>
+</div>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-all">download</span>
+</div>
+</div>
+</div>
+<!-- System Diagnostic Card -->
+<div class="mt-auto p-4 bg-primary-container rounded-2xl border border-primary/10 relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 opacity-5">
+<span class="material-symbols-outlined text-8xl text-primary" style="font-variation-settings: 'FILL' 1;">waves</span>
+</div>
+<h5 class="text-[10px] font-black uppercase tracking-widest text-primary mb-2">Neural Link Status</h5>
+<div class="flex items-center justify-between mb-4">
+<span class="text-2xl font-headline font-bold text-on-primary-container">98.4%</span>
+<span class="text-[10px] text-primary/80 font-mono">LATENCY: 12ms</span>
+</div>
+<div class="w-full h-1 bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-primary primary-glow" style="width: 98.4%"></div>
+</div>
+</div>
+</aside>
+</main>
+</body></html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>M-Navy | Maritime Intelligence &amp; Operations</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary": "#1b247f",
+              "on-secondary-container": "#a8afff",
+              "outline-variant": "#44474f",
+              "on-primary-fixed": "#001f24",
+              "secondary": "#bdc2ff",
+              "primary": "#006875", /* Adjusted for readability on light but keeping the brand cyan #00daf3 as primary-fixed-dim */
+              "brand-cyan": "#00daf3",
+              "on-primary-fixed-variant": "#004f58",
+              "primary-container": "#002126",
+              "surface-container-low": "#181c22",
+              "on-tertiary-fixed-variant": "#5d4201",
+              "primary-fixed": "#9cf0ff",
+              "secondary-fixed": "#e0e0ff",
+              "on-error": "#690005",
+              "tertiary-fixed-dim": "#e9c176",
+              "secondary-fixed-dim": "#bdc2ff",
+              "tertiary-fixed": "#ffdea5",
+              "error-container": "#93000a",
+              "surface-dim": "#10141a",
+              "surface-tint": "#00daf3",
+              "on-surface-variant": "#c5c6d0",
+              "on-primary-container": "#0092a3",
+              "error": "#ffb4ab",
+              "outline": "#8e9099",
+              "surface-container-lowest": "#0a0e14",
+              "surface-bright": "#353940",
+              "background": "#10141a",
+              "surface-variant": "#31353c",
+              "inverse-on-surface": "#2d3137",
+              "surface-container-high": "#262a31",
+              "tertiary": "#e9c176",
+              "on-background": "#dfe2eb",
+              "inverse-surface": "#dfe2eb",
+              "on-secondary-fixed-variant": "#343d96",
+              "on-tertiary-container": "#a17f3c",
+              "inverse-primary": "#006875",
+              "tertiary-container": "#281a00",
+              "secondary-container": "#343d96",
+              "on-tertiary-fixed": "#261900",
+              "primary-fixed-dim": "#00daf3",
+              "on-secondary-fixed": "#000767",
+              "on-primary": "#00363d",
+              "on-tertiary": "#412d00",
+              "on-error-container": "#ffdad6",
+              "surface-container-highest": "#31353c",
+              "on-surface": "#dfe2eb",
+              "surface-container": "#1c2026",
+              "surface": "#10141a"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(24, 28, 34, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(223, 226, 235, 0.1);
+        }
+        .text-gradient-cyan {
+            background: linear-gradient(135deg, #00daf3 0%, #0092a3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-primary-gradient {
+            background: linear-gradient(135deg, #00daf3 0%, #0092a3 100%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-brand-cyan/30">
+<!-- TopNavBar (Shared Component) -->
+<nav class="fixed top-0 w-full flex justify-between items-center px-8 py-4 max-w-full mx-auto bg-[#10141a]/80 backdrop-blur-xl z-50 shadow-[0_24px_48px_-12px_rgba(0,0,0,0.5)] bg-gradient-to-b from-[#181c22] to-transparent">
+<div class="text-2xl font-black tracking-tighter text-[#00daf3]">M-Navy</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-['Manrope'] tracking-widest uppercase text-sm font-bold text-[#00daf3] border-b-2 border-[#00daf3] pb-1" href="#">Knowledge Base</a>
+<a class="font-['Manrope'] tracking-widest uppercase text-sm font-bold text-[#dfe2eb] hover:text-[#00daf3] transition-colors" href="#">Operations</a>
+<a class="font-['Manrope'] tracking-widest uppercase text-sm font-bold text-[#dfe2eb] hover:text-[#00daf3] transition-colors" href="#">Forum</a>
+<a class="font-['Manrope'] tracking-widest uppercase text-sm font-bold text-[#dfe2eb] hover:text-[#00daf3] transition-colors" href="#">Document Vault</a>
+</div>
+<button class="bg-primary-gradient text-on-primary font-bold px-6 py-2 rounded-xl transition-transform scale-95 active:scale-90 hover:opacity-80">
+            Get Started
+        </button>
+</nav>
+<main>
+<!-- Section 1: Hero (Glassmorphic) -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+<div class="absolute inset-0 z-0">
+<img alt="Modern bridge of a large merchant vessel" class="w-full h-full object-cover opacity-30" data-alt="Wide angle view of a high-tech modern ship bridge at night" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1p47P8ikqcvudpPBZVnV0-zjKrOfTp6mseBi82TAudE5z93diNenqTPnqVQPUL49ickBfJ1TcvJSc13rSMWNrtYJ0ZG-KxZLJH32gb65kTZM7QSdYO4A4rOHr75tQeT75pB8eh-p7ZqaE_wP-CO9I_rNTcjAmk52ZdgBSR4rMsj2ZTZkC7h6w4cZTrrU2mW3ktuku8ewKqlQzszoP-QA9mM4ER4fXQgjx9hx7RinMTNjapaeiWbTtIHN4KDvpb6RIlp7z5DLgucU"/>
+<div class="absolute inset-0 bg-gradient-to-tr from-background via-transparent to-surface-bright/20"></div>
+</div>
+<div class="relative z-10 container mx-auto px-6 text-center">
+<div class="glass-panel max-w-5xl mx-auto p-12 md:p-20 rounded-3xl shadow-2xl">
+<h1 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tight text-on-surface mb-6 leading-tight">
+                        The New Standard in <br/>
+<span class="text-gradient-cyan">Maritime Intelligence</span>
+</h1>
+<p class="text-xl md:text-2xl text-on-surface-variant max-w-3xl mx-auto mb-12 font-light">
+                        Empowering Merchant Navy officers with a unified knowledge base and secure operations platform for the digital era.
+                    </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+<button class="bg-primary-gradient text-on-primary text-lg font-bold px-10 py-4 rounded-xl shadow-lg hover:shadow-brand-cyan/20 transition-all">
+                            Join the Fleet
+                        </button>
+<button class="border border-outline-variant/30 text-brand-cyan text-lg font-bold px-10 py-4 rounded-xl hover:bg-surface-container-high transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">play_circle</span>
+                            Watch Demo
+                        </button>
+</div>
+</div>
+</div>
+<!-- Floating Decorative Element -->
+<div class="absolute bottom-10 right-10 opacity-20 hidden lg:block">
+<span class="material-symbols-outlined text-[120px] text-brand-cyan">explore</span>
+</div>
+</section>
+<!-- Section 2: The Problem -->
+<section class="py-24 bg-surface-container-low">
+<div class="container mx-auto px-6">
+<div class="flex flex-col md:flex-row items-center gap-16">
+<div class="flex-1 space-y-8">
+<h2 class="font-headline text-4xl font-bold tracking-widest uppercase text-brand-cyan">The Navigation Gap</h2>
+<h3 class="font-headline text-3xl md:text-5xl font-extrabold text-on-surface">Fragility in traditional maritime systems.</h3>
+<p class="text-lg text-on-surface-variant leading-relaxed">
+                            Maritime knowledge is currently siloed across physical manuals, disconnected local drives, and legacy software that hasn't evolved in decades. This fragmentation leads to operational delays, increased risk, and a critical lack of situational awareness.
+                        </p>
+<div class="grid grid-cols-2 gap-8 pt-4">
+<div class="border-l-2 border-brand-cyan pl-6">
+<span class="block text-3xl font-bold text-on-surface">40%</span>
+<span class="text-sm uppercase tracking-wider text-on-surface-variant">Information Lag</span>
+</div>
+<div class="border-l-2 border-tertiary pl-6">
+<span class="block text-3xl font-bold text-on-surface">65%</span>
+<span class="text-sm uppercase tracking-wider text-on-surface-variant">Manual Overhead</span>
+</div>
+</div>
+</div>
+<div class="flex-1">
+<div class="relative aspect-square rounded-3xl overflow-hidden bg-surface-container-high p-4 border border-outline-variant/10">
+<img alt="Overhead view of shipping containers and data overlay" class="w-full h-full object-cover rounded-2xl grayscale hover:grayscale-0 transition-all duration-700" data-alt="Monochrome overhead photo of container ship deck with technical overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCChOj2n-Au9HvmRBPRWuSghM6rpxveNbGHZaw5zxVrSUy8gYnHFah1kxZ1PA3HIw0QART6je1T7L0uNjzIESuWleHX1pt1ZIZwofc14BPDkkWRRQptzM8SSZrZF5CoszcVuHGEaMWJIu2ohPEPXoFklaC0uw_HjdRmLTE3GaLcbrwURoCrkKVOa-aVChx7Ill9rsmO29nOxZH4uSsDV5ZSjk3b67xiCj6o4h4nGTxsnzniY4Nl1MW_AwCUzDduynFijDag6d3t_Cg"/>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border-2 border-brand-cyan/20 rounded-full animate-pulse"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Feature Cards (Forum, AI Chatbot, Document Vault) -->
+<section class="py-32 bg-background relative">
+<div class="container mx-auto px-6 relative z-10">
+<div class="text-center mb-20">
+<h2 class="font-headline text-5xl font-extrabold text-on-surface mb-4">Precision Navigational Tools</h2>
+<p class="text-on-surface-variant max-w-2xl mx-auto">Integrated systems designed for high-stakes maritime environments.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Card 1: Forum -->
+<div class="glass-panel p-10 rounded-3xl group hover:border-brand-cyan/30 transition-all duration-500">
+<div class="w-16 h-16 rounded-2xl bg-primary-container flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-brand-cyan text-3xl">forum</span>
+</div>
+<h4 class="font-headline text-2xl font-bold mb-4 text-on-surface">Officer's Forum</h4>
+<p class="text-on-surface-variant leading-relaxed mb-8">
+                            A global community of certified maritime professionals sharing real-time insights and operational best practices.
+                        </p>
+<a class="text-brand-cyan font-bold uppercase text-xs tracking-widest flex items-center gap-2 group/link" href="#">
+                            Explore Community
+                            <span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<!-- Card 2: AI Chatbot -->
+<div class="glass-panel p-10 rounded-3xl border-t-2 border-brand-cyan/20 group hover:border-brand-cyan transition-all duration-500">
+<div class="w-16 h-16 rounded-2xl bg-primary-gradient flex items-center justify-center mb-8 group-hover:rotate-12 transition-transform">
+<span class="material-symbols-outlined text-on-primary text-3xl" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<h4 class="font-headline text-2xl font-bold mb-4 text-on-surface">Operational AI</h4>
+<p class="text-on-surface-variant leading-relaxed mb-8">
+                            Get instant answers to complex regulatory queries and technical procedures with our maritime-trained LLM.
+                        </p>
+<a class="text-brand-cyan font-bold uppercase text-xs tracking-widest flex items-center gap-2 group/link" href="#">
+                            Consult Co-Pilot
+                            <span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<!-- Card 3: Document Vault -->
+<div class="glass-panel p-10 rounded-3xl group hover:border-brand-cyan/30 transition-all duration-500">
+<div class="w-16 h-16 rounded-2xl bg-primary-container flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-brand-cyan text-3xl">inventory_2</span>
+</div>
+<h4 class="font-headline text-2xl font-bold mb-4 text-on-surface">Document Vault</h4>
+<p class="text-on-surface-variant leading-relaxed mb-8">
+                            A secure, offline-first repository for all essential ship documentation and technical manuals.
+                        </p>
+<a class="text-brand-cyan font-bold uppercase text-xs tracking-widest flex items-center gap-2 group/link" href="#">
+                            Open Archive
+                            <span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Security/Trust -->
+<section class="py-24 bg-surface-container-lowest">
+<div class="container mx-auto px-6">
+<div class="max-w-4xl mx-auto text-center">
+<span class="material-symbols-outlined text-tertiary text-6xl mb-6">verified_user</span>
+<h2 class="font-headline text-4xl md:text-5xl font-extrabold text-on-surface mb-8">Built for Command-Level Security</h2>
+<p class="text-xl text-on-surface-variant mb-16">
+                        Data integrity is our North Star. M-Navy operates with the highest grade of encryption and compliance protocols to ensure operational confidentiality.
+                    </p>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="flex flex-col items-center">
+<div class="h-12 w-32 bg-surface-container-high rounded flex items-center justify-center border border-outline-variant/20 mb-3 grayscale opacity-70">
+<span class="font-bold text-xs">ISO/IEC 27001</span>
+</div>
+<span class="text-[10px] uppercase tracking-tighter text-on-surface-variant">Certified Protocol</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="h-12 w-32 bg-surface-container-high rounded flex items-center justify-center border border-outline-variant/20 mb-3 grayscale opacity-70">
+<span class="font-bold text-xs">AES-256</span>
+</div>
+<span class="text-[10px] uppercase tracking-tighter text-on-surface-variant">Encryption Standard</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="h-12 w-32 bg-surface-container-high rounded flex items-center justify-center border border-outline-variant/20 mb-3 grayscale opacity-70">
+<span class="font-bold text-xs">GDPR READY</span>
+</div>
+<span class="text-[10px] uppercase tracking-tighter text-on-surface-variant">Privacy First</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="h-12 w-32 bg-surface-container-high rounded flex items-center justify-center border border-outline-variant/20 mb-3 grayscale opacity-70">
+<span class="font-bold text-xs">SOC2 TYPE II</span>
+</div>
+<span class="text-[10px] uppercase tracking-tighter text-on-surface-variant">Ongoing Compliance</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-32 bg-background">
+<div class="container mx-auto px-6">
+<div class="bg-surface-container-high rounded-3xl p-12 md:p-24 overflow-hidden relative border border-brand-cyan/10">
+<div class="relative z-10 max-w-2xl">
+<h2 class="font-headline text-4xl md:text-6xl font-extrabold text-on-surface mb-6">Ready to upgrade your vessel's IQ?</h2>
+<p class="text-xl text-on-surface-variant mb-12">Join thousands of maritime professionals redefining excellence at sea.</p>
+<button class="bg-primary-gradient text-on-primary text-xl font-bold px-12 py-5 rounded-xl transition-all hover:shadow-[0_0_30px_-5px_#00daf3]">
+                            Request Fleet Access
+                        </button>
+</div>
+<div class="absolute -right-20 -bottom-20 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[400px] text-brand-cyan">anchor</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full bg-[#10141a] border-t border-[#44474f]/15">
+<div class="w-full px-12 py-16 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex flex-col gap-4">
+<div class="text-lg font-bold text-[#dfe2eb]">M-Navy Operations</div>
+<div class="font-['Inter'] text-sm tracking-normal text-[#c5c6d0]">© 2024 M-Navy Operations. All rights reserved. Precision Navigational Instruments.</div>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-['Inter'] text-sm tracking-normal text-[#c5c6d0] hover:text-[#e9c176] transition-colors opacity-100 hover:opacity-80" href="#">Privacy Policy</a>
+<a class="font-['Inter'] text-sm tracking-normal text-[#c5c6d0] hover:text-[#e9c176] transition-colors opacity-100 hover:opacity-80" href="#">Terms of Service</a>
+<a class="font-['Inter'] text-sm tracking-normal text-[#c5c6d0] hover:text-[#e9c176] transition-colors opacity-100 hover:opacity-80" href="#">Security Protocols</a>
+<a class="font-['Inter'] text-sm tracking-normal text-[#c5c6d0] hover:text-[#e9c176] transition-colors opacity-100 hover:opacity-80 text-[#00daf3]" href="#">Contact Command</a>
+</div>
+</div>
+</footer>
+</body></html>
