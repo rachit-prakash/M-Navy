@@ -21,9 +21,23 @@ export default function ProfilePage() {
   });
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setUser(session?.user ?? null);
       if (session?.user) {
+        // 1. Fetch from 'profiles' to get the immutable Database Avatar
+        const { data: profile } = await supabase.from('profiles').select('avatar_url').eq('id', session.user.id).single();
+        
+        // 2. If the user explicitly uploaded an M-Navy avatar, but Google OAuth wiped their session metadata, restore it!
+        let activeAvatar = session.user.user_metadata.avatar_url;
+        if (profile?.avatar_url && profile.avatar_url !== activeAvatar && profile.avatar_url.includes('avatars/public')) {
+          await supabase.auth.updateUser({ data: { avatar_url: profile.avatar_url } });
+          activeAvatar = profile.avatar_url;
+          
+          // Update local state copy to fix instant render
+          session.user.user_metadata.avatar_url = activeAvatar;
+          setUser({ ...session.user });
+        }
+
         const meta = session.user.user_metadata;
         setProfileData({
           name: meta?.full_name || session.user.email?.split("@")[0] || "",
@@ -85,6 +99,10 @@ export default function ProfilePage() {
       });
 
       if (updateError) throw updateError;
+      
+      // Update Database Table so the Forum sees the new avatar
+      const { error: dbError } = await supabase.from('profiles').update({ avatar_url: publicUrl }).eq('id', user.id);
+      if (dbError) console.error("Database sync error (non-fatal):", dbError);
       
       if (updateData?.user) setUser(updateData.user);
       

@@ -18,18 +18,28 @@ export default function DocumentVault() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [selectedDocUrl, setSelectedDocUrl] = useState<string | null>(null);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+  }, []);
 
   const fetchDocuments = async () => {
+    if (!user) return;
     try {
-      const { data, error } = await supabase.storage.from('vault').list('', {
+      const { data, error } = await supabase.storage.from('vault').list(user.id, {
         sortBy: { column: 'created_at', order: 'desc' }
       });
-      if (error) return; // Silent fail if bucket doesn't exist yet
+      if (error) return; // Silent fail if bucket/folder doesn't exist yet
 
       if (data) {
-        const files = data.filter(f => f.name !== '.emptyFolderPlaceholder');
+        // Filter out placeholders and the AI chat history cache
+        const files = data.filter(f => f.name !== '.emptyFolderPlaceholder' && f.name !== 'chat_history.json');
+        
         const docs = files.map(file => ({
-          id: file.name,
+          id: `${user.id}/${file.name}`,
           name: file.name.split('_').slice(1).join('_') || file.name, // Remove timestamp if present
           type: file.name.split('.').pop()?.toUpperCase() || "FILE",
           expiry: null,
@@ -45,16 +55,18 @@ export default function DocumentVault() {
   };
 
   useEffect(() => {
-    fetchDocuments();
-  }, []);
+    if (user) {
+      fetchDocuments();
+    }
+  }, [user]);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
+    if (e.target.files && e.target.files.length > 0 && user) {
       setIsUploading(true);
       const file = e.target.files[0];
       
       try {
-        const fileName = `${Date.now()}_${file.name}`;
+        const fileName = `${user.id}/${Date.now()}_${file.name}`;
         const { error } = await supabase.storage
           .from('vault')
           .upload(fileName, file, { upsert: true });

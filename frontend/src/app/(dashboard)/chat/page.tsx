@@ -15,6 +15,7 @@ interface Message {
 export default function ChatPage() {
   const [user, setUser] = useState<User | null>(null);
   const [authChecked, setAuthChecked] = useState(false);
+  const [dbAvatar, setDbAvatar] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([{
     role: "model",
     content: "Greetings Officer. I am the M-Navy AI Assistant, specialized in Merchant Navy operations, safety protocols, and regulations. How can I assist you today?"
@@ -28,19 +29,25 @@ export default function ChatPage() {
   };
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       const currentUser = session?.user ?? null;
       setUser(currentUser);
       setAuthChecked(true);
 
       if (currentUser) {
-        const savedHistory = localStorage.getItem(`mnavy_chat_${currentUser.id}`);
-        if (savedHistory) {
-          try {
-            setMessages(JSON.parse(savedHistory));
-          } catch (e) {
-            console.error("Failed to parse chat history");
+        // Fetch true DB avatar to bypass Google OAuth override
+        supabase.from('profiles').select('avatar_url').eq('id', currentUser.id).single()
+          .then(({ data }) => setDbAvatar(data?.avatar_url || null));
+
+        try {
+          // Cross-device Cloud Sync: Load history from Supabase Vault
+          const { data, error } = await supabase.storage.from('vault').download(`${currentUser.id}/chat_history.json`);
+          if (data) {
+            const text = await data.text();
+            setMessages(JSON.parse(text));
           }
+        } catch (e) {
+          console.error("Failed to load cloud chat history", e);
         }
       }
     });
@@ -50,9 +57,20 @@ export default function ChatPage() {
     scrollToBottom();
   }, [messages, loading]);
 
+  // Save to cloud storage whenever messages change
   useEffect(() => {
     if (user && messages.length > 1) {
-      localStorage.setItem(`mnavy_chat_${user.id}`, JSON.stringify(messages));
+      const uploadHistory = async () => {
+        try {
+          const blob = new Blob([JSON.stringify(messages)], { type: 'application/json' });
+          await supabase.storage.from('vault').upload(`${user.id}/chat_history.json`, blob, { upsert: true });
+        } catch (e) {
+          console.error("Failed to sync history to cloud", e);
+        }
+      };
+      
+      // Debounce slightly by just firing async
+      uploadHistory();
     }
   }, [messages, user]);
 
@@ -158,10 +176,12 @@ export default function ChatPage() {
           </div>
           <div className="flex items-center gap-3">
             <button 
-              onClick={() => {
+              onClick={async () => {
                 if (confirm("Purge conversational memory?")) {
                   setMessages([{ role: "model", content: "Memory purged. Secure comms channel re-established. How can I assist you today?" }]);
-                  if (user) localStorage.removeItem(`mnavy_chat_${user.id}`);
+                  if (user) {
+                    await supabase.storage.from('vault').remove([`${user.id}/chat_history.json`]);
+                  }
                 }
               }}
               className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant hover:text-error transition-colors px-3 py-1.5 border border-outline-variant/10 rounded-lg bg-surface-container-high/50"
@@ -184,7 +204,7 @@ export default function ChatPage() {
             >
               <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border ${msg.role === "user" ? "border-outline-variant/30 overflow-hidden" : "bg-primary primary-glow border-primary-fixed"}`}>
                 {msg.role === "user" ? (
-                  <img className="w-full h-full object-cover" alt="Officer Profile Avatar" src={user?.user_metadata?.avatar_url || "https://ui-avatars.com/api/?name=Officer&background=random"}/>
+                  <img className="w-full h-full object-cover" alt="Officer Profile Avatar" src={dbAvatar || user?.user_metadata?.avatar_url || "https://ui-avatars.com/api/?name=Officer&background=random"}/>
                 ) : (
                   <Bot className="h-5 w-5 text-on-primary" />
                 )}
