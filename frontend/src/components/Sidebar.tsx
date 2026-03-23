@@ -47,7 +47,7 @@ export default function Sidebar({ isCollapsed = false, setIsCollapsed }: { isCol
         </div>
         
         <div className="flex-1 overflow-y-auto py-6 px-3 space-y-2">
-          {navItems.map((item) => {
+          {navItems.map((item, index) => {
             const isActive = pathname.startsWith(item.href);
             const Icon = item.icon;
             return (
@@ -56,11 +56,12 @@ export default function Sidebar({ isCollapsed = false, setIsCollapsed }: { isCol
                 href={item.href}
                 onClick={() => setIsMobileOpen(false)}
                 title={collapsed ? item.name : undefined}
-                className={`flex items-center gap-3 py-3 sm:py-2.5 rounded-lg transition-all font-medium ${
+                className={`flex items-center gap-3 py-3 sm:py-2.5 rounded-lg transition-all font-medium animate-in fade-in slide-in-from-left-4 ${
                   isActive 
                     ? "bg-blue-50 text-blue-600 dark:bg-blue-600/10 dark:text-blue-400 border border-blue-200 dark:border-blue-500/20"
                     : "hover:bg-gray-200 dark:hover:bg-[#1A1A1D] hover:text-gray-900 dark:hover:text-white text-gray-600 dark:text-gray-400"
                 } ${collapsed ? "justify-center px-0" : "px-4"}`}
+                style={{ animationDelay: `${index * 75}ms`, animationFillMode: 'both', animationDuration: '400ms' }}
               >
                 <Icon className="h-5 w-5 shrink-0" />
                 {!collapsed && <span>{item.name}</span>}

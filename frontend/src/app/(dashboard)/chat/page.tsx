@@ -200,7 +200,7 @@ export default function ChatPage() {
           {messages.map((msg, i) => (
             <div 
               key={i} 
-              className={`flex gap-4 items-start max-w-3xl ${msg.role === "user" ? "flex-row-reverse ml-auto" : ""}`}
+              className={`flex gap-4 items-start max-w-3xl ${msg.role === "user" ? "flex-row-reverse ml-auto" : ""} animate-in fade-in slide-in-from-bottom-2 duration-300`}
             >
               <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border ${msg.role === "user" ? "border-outline-variant/30 overflow-hidden" : "bg-primary primary-glow border-primary-fixed"}`}>
                 {msg.role === "user" ? (
